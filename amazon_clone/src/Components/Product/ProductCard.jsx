@@ -4,11 +4,12 @@ import CurrencyFormat from '../CurrencyFormat/CurrencyFormat';
 import classes from './Product.module.css'
 
  function ProductCard({Product}) {
+
      const {image, title, id, rating, price} = Product;
 
   return (
     <div  className={`${classes.Card_Container} `}   >
-     <a href="">
+     <a href="#">
         <img src={image} alt="" />
      </a>
      <div>

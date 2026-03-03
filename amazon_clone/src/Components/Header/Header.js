@@ -1,6 +1,6 @@
 import React from 'react'
 import classes  from  "./Header.module.css"
-
+import {Link} from 'react-router-dom'
 import { SlLocationPin } from "react-icons/sl";
 import { BsSearch } from "react-icons/bs";
 import { BiCart } from "react-icons/bi";
@@ -15,9 +15,9 @@ import LowerHeader from './LowerHeader';
         <section className={classes.header_container}>
             {/* logo section */}
             <div className={classes.logo_container}>
-                <a href="#">
+                <Link to="/">
                     <img src="https://pngimg.com/uploads/amazon/amazon_PNG11.png" alt="amazon logo" />
-                </a>
+                </Link>
                   
                   <div className={classes.delivery}>
                     <span>
@@ -52,15 +52,15 @@ import LowerHeader from './LowerHeader';
                         <span>Account & Lists</span>
                 </a>
                 {/* order */}
-                <a href="">
+                <Link to="/orders">
                      <p>returns</p>
                     <span>& orders</span>
-                 </a>
+                 </Link>
                 {/* cart */}
-                <a href="" className={classes.cart}>
+                <Link to="/cart" className={classes.cart}>
                  <BiCart  size={35}/>
                  <span>0</span>
-                </a>
+                </Link>
             </div>
 
         </section>

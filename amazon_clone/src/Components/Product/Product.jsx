@@ -23,7 +23,7 @@ import classes from './Product.module.css'
      <section  className={classes.Products_container}>
       {
         Products.map((singleProduct) => {
-           return <ProductCard Product={singleProduct} key={singleProduct.id} />
+           return <ProductCard product={singleProduct} key={singleProduct.id} />
           })
       }
 

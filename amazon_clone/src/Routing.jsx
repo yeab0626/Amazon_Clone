@@ -16,7 +16,7 @@ import Results from './Pages/Results/Results';
              <Route path='/payments'  element={<Payment/>} />
              <Route path='/orders'  element={<Orders/>} />
              <Route path='/cart'  element={<Cart />} />
-             <Route path='/results'  element={<Results />} />
+             <Route path="/category/:categoryName"  element={<Results />} />
 
           </Routes>
     </Router>

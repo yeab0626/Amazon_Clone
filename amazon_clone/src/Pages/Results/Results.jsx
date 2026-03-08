@@ -21,7 +21,6 @@ import ProductCard from '../../Components/Product/ProductCard';
         return map[name.toLowerCase()] || name;
      };
      
-     
 
      useEffect(() => {
         const apiCategory = getApiCategory(categoryName);

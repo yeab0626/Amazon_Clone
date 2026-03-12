@@ -14,7 +14,7 @@ import { DataContext } from '../DataProvider/DataProvider';
  const[{basket}, dispatch] = useContext(DataContext)
   
   return (
-    <>
+    <section className={classes.fixed}>
       <section>
         <section className={classes.header_container}>
             {/* logo section */}
@@ -70,7 +70,7 @@ import { DataContext } from '../DataProvider/DataProvider';
         </section>
       </section>
      <LowerHeader />
-    </>
+    </section>
   )
 }
 

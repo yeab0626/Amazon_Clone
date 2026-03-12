@@ -7,6 +7,9 @@
 .container img{
   width: 100px !important;
 }
+.container div:not(.Subtotal) {
+    height: auto !important;
+}
 .Cart_Container{
     padding: 20px;
 }

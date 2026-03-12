@@ -27,7 +27,7 @@ import Loader from '../Loader/Loader'
       { Products.length > 0 ? (
         Products.map((singleProduct) => (
          singleProduct ? (
-            <ProductCard product={singleProduct} key={singleProduct.id} />
+            <ProductCard renderAdd={true} product={singleProduct} key={singleProduct.id} />
          ) : null ))
       ) : (
          <p> No products found.</p>

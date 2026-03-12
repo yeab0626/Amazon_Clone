@@ -1,0 +1,57 @@
+.container{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+.container img{
+  width: 100px !important;
+}
+.Cart_Container{
+    padding: 20px;
+}
+.Cart_Container h2,
+.Cart_Container h3 {
+    padding: 10px;
+}
+.Cart_Container hr {
+    margin: 10px;
+}
+.Subtotal{
+    padding: 20px;
+    min-width: 300px;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    border: 1px solid rgba(193, 193, 193);
+    background-color: rgb(242, 241, 241);
+    border-radius: 5px;
+}
+.Subtotal a {
+    text-align: center;
+    width: 100%;
+    border: none;
+    background-color: var(--primary-color);
+    border-radius: 5px;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: black;
+}
+.Subtotal a:hover {
+    background: var(--primary-shade);
+}
+.Subtotal > div,
+.Subtotal span {
+    display: flex;
+    gap: 20px;
+}
+
+@media screen  and (max-width: 968px){
+    .container {
+        flex-direction: column;
+        order: 1;
+    }
+    
+}

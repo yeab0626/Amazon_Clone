@@ -7,7 +7,7 @@ import { DataContext } from '../DataProvider/DataProvider';
 import {Type} from '../../Utility/action.type'
 
 
- function ProductCard({product, flex, renderDesc}) {
+ function ProductCard({product, flex, renderDesc, renderAdd}) {
      const [state, dispatch]=useContext(DataContext)
 
      if (!product) return null
@@ -44,9 +44,13 @@ import {Type} from '../../Utility/action.type'
             <CurrencyFormat   amount={price}/>
         </div>
 
-        <button  className={classes.button}  onClick={addToCart}>
+        {
+          renderAdd &&  <button  className={classes.button}  onClick={addToCart}>
           add to cart
         </button>
+        }
+
+       
 
      </div>
 

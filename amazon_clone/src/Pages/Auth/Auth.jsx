@@ -1,8 +1,52 @@
-import React from 'react'
+import React, { useState, useContext, useEffect }from 'react'
 import classes from './SignUp.module.css'
 import {Link}  from "react-router-dom"
+import { auth } from '../../Utility/firebase'
+import {signInWithEmailAndPassword, createUserWithEmailAndPassword}  from "firebase/auth"
+import {DataContext}  from '../../Components/DataProvider/DataProvider'
+import {Type}   from '../../Utility/action.type'
 
  function Auth() {
+   const[email, setEmail] =useState("");
+   const[password, setPassword] =useState("");
+    const[error, setError] =useState("");
+
+    const [{user}, dispatch] = useContext(DataContext)
+
+    useEffect (() => {
+       console.log(user)
+    }, [user])
+
+const authHandler = async (e) => {
+  e.preventDefault();
+  setError("");
+  try {
+    if (e.target.name.toLowerCase() === "signin") {
+      const userInfo = await signInWithEmailAndPassword(auth, email, password);
+
+      dispatch({
+        type: Type.SET_USER,
+        user:userInfo.user
+      })
+    } else {
+      const userInfo = await createUserWithEmailAndPassword(auth, email, password);
+
+      dispatch({
+        type: Type.SET_USER,
+        user:userInfo.user
+      })
+    }
+  } catch (err) {
+    setError(err.message);
+    console.log(err);
+  }
+};
+
+
+
+
+// console.log(password, email)
+
   return (
     <section  className={classes.login}>
          {/* logo */}
@@ -17,13 +61,14 @@ import {Link}  from "react-router-dom"
            <form action="">
             <div>
               <label htmlFor="email">Email</label>
-              <input type="email" id="emial" />
+              <input value={email} onChange={(e)=>setEmail(e.target.value)} type="email" id="email" />
             </div>
+            {error && <p className={classes.error}>{error}</p>}
             <div>
               <label htmlFor="Password">Password</label>
-              <input type="password" id="password" />
+              <input value={password} onChange={(e)=>setPassword(e.target.value)} type="password" id="password" />
             </div>
-            <button   className={classes.login_signInBUtton}>Sign In</button>
+            <button type="submit" name="Signin" onClick={authHandler}  className={classes.login_signInBUtton}>Sign In</button>
            </form>
 
            {/* agreement */}
@@ -34,7 +79,7 @@ import {Link}  from "react-router-dom"
            </p>
 
            {/* Create accoutn btn */}
-           <button className={classes.login_registerButton}>Create Your Amazon Account</button>
+           <button type="button" name="Signup" onClick={authHandler} className={classes.login_registerButton}>Create Your Amazon Account</button>
          </div>
     </section>
   )

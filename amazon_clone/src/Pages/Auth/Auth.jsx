@@ -1,17 +1,25 @@
 import React, { useState, useContext, useEffect }from 'react'
 import classes from './SignUp.module.css'
-import {Link}  from "react-router-dom"
+import {Link, useNavigate}  from "react-router-dom"
 import { auth } from '../../Utility/firebase'
 import {signInWithEmailAndPassword, createUserWithEmailAndPassword}  from "firebase/auth"
 import {DataContext}  from '../../Components/DataProvider/DataProvider'
 import {Type}   from '../../Utility/action.type'
+import {ClipLoader }  from 'react-spinners'
+
+
 
  function Auth() {
    const[email, setEmail] =useState("");
    const[password, setPassword] =useState("");
     const[error, setError] =useState("");
+    const[loading, setLoading] = useState({
+      signIn: false,
+      signUp:false
+    })
 
     const [{user}, dispatch] = useContext(DataContext)
+    const navigate = useNavigate()
 
     useEffect (() => {
        console.log(user)
@@ -20,25 +28,36 @@ import {Type}   from '../../Utility/action.type'
 const authHandler = async (e) => {
   e.preventDefault();
   setError("");
+  const action = e.currentTarget.name.toLowerCase(); // always lowercase
+
   try {
-    if (e.target.name.toLowerCase() === "signin") {
+    if (action === "signin") {
+      setLoading({ ...loading, signIn: true });
+
       const userInfo = await signInWithEmailAndPassword(auth, email, password);
 
       dispatch({
         type: Type.SET_USER,
-        user:userInfo.user
-      })
-    } else {
+        user: userInfo.user
+      });
+      setLoading({ ...loading, signIn: false });
+      navigate("/"); // redirect after sign-in
+    } else if (action === "signup") { // lowercase here
+      setLoading({ ...loading, signUp: true });
+
       const userInfo = await createUserWithEmailAndPassword(auth, email, password);
 
       dispatch({
         type: Type.SET_USER,
-        user:userInfo.user
-      })
+        user: userInfo.user
+      });
+      setLoading({ ...loading, signUp: false });
+      navigate("/"); // redirect after sign-up
     }
   } catch (err) {
     setError(err.message);
     console.log(err);
+    setLoading({ signIn: false, signUp: false });
   }
 };
 
@@ -50,7 +69,7 @@ const authHandler = async (e) => {
   return (
     <section  className={classes.login}>
          {/* logo */}
-          <Link>
+          <Link to="/">
             <img  src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg"  alt=""  />
           </Link>
 
@@ -68,7 +87,7 @@ const authHandler = async (e) => {
               <label htmlFor="Password">Password</label>
               <input value={password} onChange={(e)=>setPassword(e.target.value)} type="password" id="password" />
             </div>
-            <button type="submit" name="Signin" onClick={authHandler}  className={classes.login_signInBUtton}>Sign In</button>
+            <button type="button" name="Signin" onClick={authHandler}  className={classes.login_signInBUtton}>{loading.signIn ? (<ClipLoader color="#000" size={15}/>) : ("Sign In")}</button>
            </form>
 
            {/* agreement */}
@@ -79,7 +98,10 @@ const authHandler = async (e) => {
            </p>
 
            {/* Create accoutn btn */}
-           <button type="button" name="Signup" onClick={authHandler} className={classes.login_registerButton}>Create Your Amazon Account</button>
+           <button type="button" name="Signup" onClick={authHandler} className={classes.login_registerButton}>{loading.signUp ? (<ClipLoader color="#000" size={15}/>) : ("Create Your Amazon Account")}</button>
+           {
+              error && <small style={ {padding: "5px", color:"red"}}>{error}</small>
+           }
          </div>
     </section>
   )

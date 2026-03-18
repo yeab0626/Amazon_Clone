@@ -14,7 +14,7 @@ import {auth} from '../../Utility/firebase'
    const[{user,basket}, dispatch] = useContext(DataContext)
    const totalItem = basket?.reduce((amount, item)=>{
     return item.amount + amount
-     }, 0)
+     }, 0);
   return (
     <section className={classes.fixed}>
       <section>
